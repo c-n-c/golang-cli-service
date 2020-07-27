@@ -1,0 +1,17 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>{{.title}}</title>
+</head>
+
+<body>
+<hr>
+Please Fill the following text area with your command:
+<form action="/runcmd">
+<input type="text" name="text">
+<input type="submit">
+<hr>
+{{include "layouts/footer"}}
+</body>
+</html>

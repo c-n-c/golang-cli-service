@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/foolin/goview/supports/ginview"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os/exec"
@@ -9,12 +10,13 @@ import (
 )
 
 func HomePage(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"data": "hello world"})
+	c.HTML(http.StatusOK, "homepage.html", gin.H{"title": "Infra UI!",})
+
 }
 
 
 func RunCmd(c *gin.Context) {
-	allowed := [...]string {"ls", "dir", "cat"}
+	allowed := [...]string {"ls", "dir", "cat", "uname"}
 	ctext := c.Query("text")
 	arg := strings.Split(ctext, " ")
 	cmd := exec.Command(arg[0], arg[1:]...)
@@ -52,6 +54,8 @@ func itemExists(arrayType interface{}, item interface{}) bool {
 
 func main() {
 	r := gin.Default()
+
+	r.HTMLRender = ginview.Default()
 
 	r.GET("/", HomePage)
 
