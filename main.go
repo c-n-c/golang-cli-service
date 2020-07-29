@@ -11,7 +11,6 @@ import (
 
 func HomePage(c *gin.Context) {
 	c.HTML(http.StatusOK, "homepage.html", gin.H{"title": "Infra UI!",})
-
 }
 
 
