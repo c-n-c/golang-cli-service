@@ -19,7 +19,7 @@ func RunCmd(c *gin.Context) {
 	ctext := c.Query("text")
 	arg := strings.Split(ctext, " ")
 	cmd := exec.Command(arg[0], arg[1:]...)
-	if itemExists(allowed,arg[0]) {
+	if itemExists(allowed, arg[0]) {
 		out, err := cmd.CombinedOutput()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"data": string(out)})
