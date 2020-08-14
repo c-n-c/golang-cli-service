@@ -15,7 +15,7 @@ func HomePage(c *gin.Context) {
 
 
 func RunCmd(c *gin.Context) {
-	allowed := [...]string {"ls", "dir", "cat", "uname"}
+	allowed := [...]string {"ls", "dir", "cat", "uname", "kubectl"}
 	ctext := c.Query("text")
 	arg := strings.Split(ctext, " ")
 	cmd := exec.Command(arg[0], arg[1:]...)
@@ -55,6 +55,8 @@ func main() {
 	r := gin.Default()
 
 	r.HTMLRender = ginview.Default()
+
+	r.Static("/assets", "./assets")
 
 	r.GET("/", HomePage)
 
