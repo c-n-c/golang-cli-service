@@ -15,7 +15,7 @@ func HomePage(c *gin.Context) {
 
 
 func RunCmd(c *gin.Context) {
-	allowed := [...]string {"ls", "dir", "cat", "uname", "kubectl"}
+	allowed := [...]string {"ls", "dir", "cat", "uname", "kubectl", "docker"}
 	ctext := c.Query("text")
 	arg := strings.Split(ctext, " ")
 	cmd := exec.Command(arg[0], arg[1:]...)

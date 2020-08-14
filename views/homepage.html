@@ -480,6 +480,31 @@
             padding: 0;
             font-family: sans-serif;
         }
+
+        #footer:hover { background: #727372; }
+        #footer a { line-height: 24px; text-transform: lowercase; margin: 0 5px; color: #fff; text-decoration: none; text-shadow: 1px 1px 0 #000; }
+
+        /* hide the footer after a short amount of time */
+        #footer {
+            text-align: right;
+            color: #9E9F9E;
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            transition: opacity 200ms ease-out;
+            -webkit-transition: opacity 200ms ease-out;
+            -moz-transition: opacity 200ms ease-out;
+            -o-transition: opacity 200ms ease-out;
+            -ms-transition: opacity 200ms ease-out;
+            opacity: 1;
+        }
+
+        #footer.hidden {
+            opacity: 0;
+        }
+
+        #footer:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -493,13 +518,13 @@
     </div>
     <div class="Line">
         <form action="#" onsubmit="postForm(this); return false;">
-        <div class="Input"><input class="cli" type="text" name="text" autofocus="true">
+        <div class="Input"><input class="cli" type="text" name="text" autofocus="true" required/>
         </div>
         </form>
     </div>
 </div>
 </div>
-{{include "layouts/footer"}}
+<span id="footer">{{include "layouts/footer"}}</span>
 </body>
 <script>
     function postForm(formElement) {
