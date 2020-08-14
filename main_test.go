@@ -40,7 +40,7 @@ func TestRunCmd(t *testing.T) {
 	req, _ := http.NewRequestWithContext(ctx, "GET", "/runcmd", nil)
 
 	r.ServeHTTP(w, req)
-	assert.Equal(t, 403, w.Code)
+	assert.Equal(t, 500, w.Code)
 
 
 	w1 := httptest.NewRecorder()

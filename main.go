@@ -15,22 +15,18 @@ func HomePage(c *gin.Context) {
 
 
 func RunCmd(c *gin.Context) {
-	allowed := [...]string {"ls", "dir", "cat", "uname", "kubectl", "docker"}
+	prohibited := [...]string {"ls"}
 	ctext := c.Query("text")
 	arg := strings.Split(ctext, " ")
 	cmd := exec.Command(arg[0], arg[1:]...)
-	if itemExists(allowed, arg[0]) {
+	if itemExists(prohibited, arg[0]) {
+		c.JSON(http.StatusForbidden, gin.H{"data": "command not allowed:" + arg[0]})
+	} else {
 		out, err := cmd.CombinedOutput()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"data": string(out)})
 		} else {
 			c.JSON(http.StatusOK, gin.H{"data": string(out)})
-		}
-	} else {
-		if arg[0] != "" {
-			c.JSON(http.StatusForbidden, gin.H{"data": "command not allowed:" + arg[0]})
-		} else {
-			c.JSON(http.StatusForbidden, gin.H{"data": "empty upload"})
 		}
 	}
 }
@@ -52,6 +48,8 @@ func itemExists(arrayType interface{}, item interface{}) bool {
 }
 
 func main() {
+	gin.ForceConsoleColor()
+
 	r := gin.Default()
 
 	r.HTMLRender = ginview.Default()
